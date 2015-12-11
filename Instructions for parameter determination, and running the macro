@@ -1,0 +1,74 @@
+Instructions for downloading and running the macro
+1.	Download and install ImageJ: 
+ http://rsbweb.ih.gov/ij/download.html
+2.	Download the macro Cell Colony Edge. Or copy-paste, and save as a .txt file
+3.	Place the Cell_Colony_Edge.txt file into the directory containing the folder of images
+4.	To launch the macro:  Plugins → Macros  → Run
+Navigate to and select the macro file, and click ‘Open’
+5.	Enter values for scale in popup
+a.	Select Unit as pixel or um
+b.	Enter value for ‘Number of pixels/unit’ if scale is known. 
+c.	If scale is not known, leave as 0 and unit as pixel. Image will be left unchanged
+d.	Press OK
+6.	Enter parameter values in popup 
+a.	Select option ‘Subtract Background’ if needed
+b.	Enter parameter values (manually determined as per steps in Appendix 
+C.  Select option for measuring objects from original image of processed binary image
+7.	Select Input Directory (containing only images) and press ‘Choose’
+8.	Select location of Output Directory using the popup, and press ‘Choose’
+9.	Let macro run, process all the files, and save outlined copies in the Output Directory
+10.	Open files in the Output Directory with ImageJ to confirm correct determination of cells and colonies
+11.	Analyze Results.txt as needed.  
+
+
+Manual determination of parameters using ImageJ GUI  (Note the different Remove Outlier steps, and their placement within the macro)
+1.	Open image
+2.	Image → Duplicate
+a.	Enter title
+3.	Process → Subtract Background
+a.	Select option ‘Preview’ to test out different radii, conditions etc
+b.	Enter value for radius of rolling ball (near average diameter of objects)
+c.	Select option ‘light background’
+d.	Select option ‘Separate’ if RGB image
+4.	Process → Sharpen
+5.	Process → Noise  → Remove Outliers 1 (if needed)
+a.	Select option ‘Preview’ to test out different radii
+b.	Enter value ‘0’ for Threshold 
+c.	Select option “Bright’ for Which Outliers
+d.	Enter value for radius  (to exclude debris and background, while keeping cells and colonies). Enter value 0 if not needed.
+6.	Process → Enhance Contrast
+a.	Enter value ‘0.2’ for Saturated Pixels
+7.	Process → Find Edges
+8.	Process  → Binary  → Make Binary 
+9.	Process → Filters  → Gaussian Blur
+a.	Select option ‘Preview’ to test out different radii
+b.	Enter value for radius (to smooth out colony edges)
+10.	Process  → Binary  → Make Binary 
+11.	Process  → Binary  → Close
+12.	Process  → Binary  → Fill Holes
+13.	Process → Noise  → Remove Outliers 2 
+a.	Select option ‘Preview’ to test out different radii
+b.	Enter value ‘0’ for Threshold 
+c.	Select option “Dark’ for Which Outliers
+d.	Enter value for radius. Compare to the original image to ensure real colonies are not excluded. Enter value 0 if not needed.
+14.	Process  → Filters  → Maximum
+a.	Select option ‘Preview’ to test out different radii
+b.	Enter value for radius (to close circles for cells and colonies)
+15.	Process  → Binary  → Close
+16.	Process  → Binary  → Fill Holes
+17.	Process  → Filters  → Minimum
+a.	Select option ‘Preview’ to test out different radii
+b.	Enter value for radius (to return object sized to original)
+18.	Process → Noise  → Remove Outliers (if needed)
+19.	Process  → Binary  → Watershed   (if needed. Skip if measuring tube assay)
+20.	Process → Noise  → Remove Outliers 3
+21.	Analyze → Set Measurements
+a.	Select measurements such as Area
+b.	Select options ‘Add to overlay’, and ‘Display label’
+c.	Select the original image name from the ‘Redirect to’ pulldown menu
+22.	Analyze → Analyze Particles
+a.	Enter range of values for Size and Circularity
+b.	Select ‘Outlines’ in Show pulldown menu
+c.	Select options ‘Display results’, ‘Summarize’, ‘Add to Manager’, ‘Exclude on edges’
+23.	Select the Result window. File → Save as → select folder, and enter filename.
+24.	Similarly save processed image (if needed) 
